@@ -1,22 +1,26 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/imagePick.dart';
+import 'package:flutter_app/locationTest.dart';
+import 'package:flutter_app/sharepreference.dart';
 
+import 'cq/login.dart';
 import 'second.dart';
 import 'third.dart';
 
 void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  runApp(
+    MaterialApp(
       title: 'Welcome to Flutter',
       home: Randoms(),
       theme: ThemeData(primaryColor: Colors.white),
-    );
-  }
+      routes: {
+        "/second": (context) => Second(),
+        "/third": (BuildContext context) => Third(),
+        "/login": (BuildContext context) => Login()
+      },
+    ),
+  );
 }
 
 class Randoms extends StatefulWidget {
@@ -96,9 +100,7 @@ class _RandomsState extends State<Randoms> {
   }
 
   void _jumpThird() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return Third();
-    }));
+    Navigator.of(context).pushNamed("/third");
   }
 
   void _jumpFour() {
@@ -107,41 +109,111 @@ class _RandomsState extends State<Randoms> {
     }));
   }
 
+  void _jumpLogin() {
+    Navigator.of(context).pushNamed("/login");
+  }
+
+  void _jumpLocation() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return LocationTest();
+    }));
+  }
+
+  void _jumpImagePick() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return ImagePick();
+    }));
+  }
+
+  void _jumpSharePreference() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return SharePreference();
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    var widgetes = [
+      FlatButton(
+        onPressed: _jumpSecond,
+        child: Text("Second"),
+        splashColor: Colors.purple,
+      ),
+      RawMaterialButton(
+        fillColor: Colors.grey,
+        highlightColor: Colors.red,
+        onPressed: _jumpThird,
+        elevation: 5,
+        child: Text("Third"),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            side: BorderSide(width: 1, style: BorderStyle.solid)),
+      ),
+      RaisedButton(
+        onPressed: _jumpFour,
+        child: Text(
+          "Four",
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
+        elevation: 5,
+        highlightElevation: 7,
+        highlightColor: Colors.black38,
+      ),
+      RaisedButton(
+        onPressed: _jumpLogin,
+        child: Text(
+          "Login",
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
+        elevation: 5,
+        highlightElevation: 7,
+        highlightColor: Colors.black38,
+      ),
+      RaisedButton(
+        onPressed: _jumpLocation,
+        child: Text(
+          "Location",
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
+        elevation: 5,
+        highlightElevation: 7,
+        highlightColor: Colors.black38,
+      ),
+      RaisedButton(
+        onPressed: _jumpImagePick,
+        child: Text(
+          "ImagePick",
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
+        elevation: 5,
+        highlightElevation: 7,
+        highlightColor: Colors.black38,
+      ),
+      RaisedButton(
+        onPressed: _jumpSharePreference,
+        child: Text(
+          "ImagePick",
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
+        elevation: 5,
+        highlightElevation: 7,
+        highlightColor: Colors.black38,
+      )
+    ];
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Suggestion Name"),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.list), onPressed: _press)
-        ],
-      ),
-      body: Row(
-        children: [
-          FlatButton(
-            onPressed: _jumpSecond,
-            child: Text("Second"),
-            splashColor: Colors.purple,
-          ),
-          RawMaterialButton(
-            highlightColor: Colors.red,
-            onPressed: _jumpThird,
-            elevation: 5,
-            child: Text("Third"),
-          ),
-          RaisedButton(
-            onPressed: _jumpFour,
-            child: Text(
-              "Four",
-              style: TextStyle(fontStyle: FontStyle.italic),
-            ),
-            elevation: 5,
-            highlightElevation: 7,
-            highlightColor: Colors.black38,
-          )
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: Text("Suggestion Name"),
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.list), onPressed: _press)
+          ],
+        ),
+        body: GridView.builder(
+            itemCount: widgetes.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisSpacing: 5.0, crossAxisSpacing: 5.0, crossAxisCount: 3),
+            itemBuilder: (context, postion) {
+              return widgetes[postion];
+            }));
   }
 }

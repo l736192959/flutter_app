@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Third extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    Navigator.of(context).pop({"key":"1234"});
     return MaterialApp(
       title: "Third",
       theme: ThemeData(primaryColor: Colors.black),
@@ -57,9 +59,7 @@ class _ThirdStateFulState extends State<ThirdStateFul> {
       appBar: AppBar(
         title: Text("ThirdStateFul"),
       ),
-      body: TapBox(
-          active: _active,
-          onChanged: _handleChanged),
+      body: _buildBody()
     );
   }
 }
