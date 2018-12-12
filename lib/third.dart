@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Third extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    Navigator.of(context).pop({"key":"1234"});
     return MaterialApp(
       title: "Third",
       theme: ThemeData(primaryColor: Colors.black),
@@ -29,25 +27,9 @@ class _ThirdStateFulState extends State<ThirdStateFul> {
     });
   }
 
-  Widget _buildBody() {
-    return Container(
-      padding: EdgeInsets.all(18.0),
-      child: Row(
-        children: [
-          IconButton(
-              icon: Icon(
-                Icons.star,
-                color: Colors.purple,
-              ),
-              onPressed: iconPress),
-          Text("$_count"),
-        ],
-      ),
-    );
-  }
-
   bool _active = false;
-  void _handleChanged(bool newValue){
+
+  void _handleChanged(bool newValue) {
     setState(() {
       _active = newValue;
     });
@@ -55,12 +37,31 @@ class _ThirdStateFulState extends State<ThirdStateFul> {
 
   @override
   Widget build(BuildContext context) {
+    Widget _buildBody() {
+      return Container(
+        padding: EdgeInsets.all(18.0),
+        child: Row(
+          children: [
+            IconButton(
+                icon: Icon(
+                  Icons.star,
+                  color: Colors.purple,
+                ),
+                onPressed: iconPress),
+            Text("$_count"),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("ThirdStateFul"),
-      ),
-      body: _buildBody()
-    );
+        appBar: AppBar(
+          title: Text("ThirdStateFul"),
+        ),
+        body: TapBox(
+          onChanged: _handleChanged,
+          active: _active,
+        ));
   }
 }
 

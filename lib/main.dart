@@ -1,7 +1,9 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/animallist.dart';
 import 'package:flutter_app/imagePick.dart';
 import 'package:flutter_app/locationTest.dart';
+import 'package:flutter_app/photohero.dart';
 import 'package:flutter_app/sharepreference.dart';
 
 import 'cq/login.dart';
@@ -131,6 +133,34 @@ class _RandomsState extends State<Randoms> {
     }));
   }
 
+  void _jumpAnimal() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return LogoAnimal();
+    }));
+  }
+
+  void _jumpHero() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text("PhotoHero"),
+        ),
+        body: Container(
+          color: Colors.transparent,
+          padding: EdgeInsets.all(16.0),
+          alignment: Alignment.topLeft,
+          child: PhotoHero(
+            photo: "asset/images/ic_launcher.png",
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+      );
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     var widgetes = [
@@ -192,13 +222,34 @@ class _RandomsState extends State<Randoms> {
       RaisedButton(
         onPressed: _jumpSharePreference,
         child: Text(
-          "ImagePick",
+          "SharedPreference",
+          style: TextStyle(fontStyle: FontStyle.italic),
+          textAlign: TextAlign.center,
+        ),
+        elevation: 5,
+        highlightElevation: 7,
+        highlightColor: Colors.black38,
+      ),
+      RaisedButton(
+        onPressed: _jumpAnimal,
+        child: Text(
+          "AnimalList",
           style: TextStyle(fontStyle: FontStyle.italic),
         ),
         elevation: 5,
         highlightElevation: 7,
         highlightColor: Colors.black38,
-      )
+      ),
+      RaisedButton(
+        child: PhotoHero(
+          photo: "asset/images/ic_launcher.png",
+          width: 200,
+          onTap: _jumpHero,
+        ),
+        elevation: 5,
+        highlightElevation: 7,
+        highlightColor: Colors.black38,
+      ),
     ];
 
     return Scaffold(
