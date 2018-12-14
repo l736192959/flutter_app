@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-
 class SecondApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -187,6 +186,7 @@ class Favorite extends StatefulWidget {
 class _FavoriteState extends State<Favorite> {
   var _count = 41;
   var _isFavorite = true;
+
   void _favoritePress() {
     setState(() {
       if (_isFavorite) {

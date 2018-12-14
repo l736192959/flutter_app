@@ -47,6 +47,14 @@ flutter:
   assets:
    - asset/images/image.jpg
    - asset/images/ic_launcher.png
+   - asset/icon/ic_phone.png
+   - asset/icon/ic_card.png
+   - asset/icon/ic_up_down.png
+   - asset/icon/ic_verify.png
+   - asset/icon/ic_user_center_unselect.png
+   - asset/icon/ic_user_center_select.png
+   - asset/icon/ic_tran_info_select.png
+   - asset/icon/ic_tran_info_unselect.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

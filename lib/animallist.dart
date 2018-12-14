@@ -198,12 +198,16 @@ class CardItem extends StatelessWidget {
   }
 }
 
+
+
+
 class LogoAnimal extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _LogoAnimalState();
 }
 
-class _LogoAnimalState extends State<LogoAnimal> with TickerProviderStateMixin {
+class _LogoAnimalState extends State<LogoAnimal>
+    with SingleTickerProviderStateMixin {
   AnimationController animationController;
   Animation<double> animation;
   AnimationStatus _animationStatus = AnimationStatus.dismissed;
@@ -212,8 +216,11 @@ class _LogoAnimalState extends State<LogoAnimal> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     animationController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 2000));
-    animation = Tween(begin: 0.0, end: 300.0).animate(animationController)
+        vsync: this, duration: Duration(milliseconds: 2000,));
+    animation = CurvedAnimation(
+        parent: animationController, curve: Curves.easeIn);
+//    animation = Tween(begin: 0.0, end: 300.0).animate(animationController)
+/*    animation = Tween(begin: 0.0, end: 300.0).animate(curve)
       ..addListener(() {
         setState(() {});
       })
@@ -222,6 +229,7 @@ class _LogoAnimalState extends State<LogoAnimal> with TickerProviderStateMixin {
           _animationStatus = status;
         });
       });
+      */
   }
 
   @override
@@ -252,6 +260,10 @@ class _LogoAnimalState extends State<LogoAnimal> with TickerProviderStateMixin {
         child: LogoAnimal1(
           animation: animation,
         ),
+        /*child: GrowTransition(
+          animation: animation,
+          child: FlutterLogo(),
+        ),*/
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _startAnimal,
@@ -265,6 +277,9 @@ class _LogoAnimalState extends State<LogoAnimal> with TickerProviderStateMixin {
 }
 
 class LogoAnimal1 extends AnimatedWidget {
+  static final _opacityTween = new Tween<double>(begin: 0.1, end: 1.0);
+  static final _sizeTween = new Tween<double>(begin: 0.0, end: 300.0);
+
   LogoAnimal1({Key key, Animation<double> animation})
       : super(key: key, listenable: animation);
 
@@ -274,11 +289,37 @@ class LogoAnimal1 extends AnimatedWidget {
 
     return new Center(
       child: new Container(
-        margin: new EdgeInsets.symmetric(vertical: 10.0),
-        height: animation.value,
-        width: animation.value,
-        child: new FlutterLogo(),
-      ),
+          margin: new EdgeInsets.symmetric(vertical: 10.0),
+          child: Opacity(
+            opacity: _opacityTween.evaluate(animation),
+            child: Container(
+              height: _sizeTween.evaluate(animation),
+              width: _sizeTween.evaluate(animation),
+              child: FlutterLogo(),
+            ),
+          )),
+    );
+  }
+}
+
+class GrowTransition extends StatelessWidget {
+  Animation<double> animation;
+  Widget child;
+
+  GrowTransition({this.animation, this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (BuildContext context, Widget child) {
+        return Container(
+          width: animation.value,
+          height: animation.value,
+          child: child,
+        );
+      },
+      child: child,
     );
   }
 }
