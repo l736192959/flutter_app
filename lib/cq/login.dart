@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/cq/home.dart';
@@ -19,16 +20,19 @@ class _LoginSate extends State<Login> with TickerProviderStateMixin {
   String _idCard;
   String _verifyCode;
   String _transType;
+  Dio _dio;
 
   @override
   void initState() {
     super.initState();
+    _dio = Dio();
     controller = new AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     curve = new CurvedAnimation(parent: controller, curve: Curves.easeIn);
     _phoneController.addListener(_phoneControllerListener);
     _idCardController.addListener(_idCardControllerListener);
     _verifyController.addListener(_verifyControllerListener);
+    _getVerifyImage();
   }
 
   @override
@@ -37,6 +41,13 @@ class _LoginSate extends State<Login> with TickerProviderStateMixin {
     _idCardController.dispose();
     _verifyController.dispose();
     super.dispose();
+  }
+
+  void _getVerifyImage() async {
+    Response response = await _dio.post(
+        "http://http://59.110.155.214:10088/image",
+        options: Options(responseType: ResponseType.STREAM));
+    print(response.data);
   }
 
   void _phoneControllerListener() {
