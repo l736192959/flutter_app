@@ -1,6 +1,7 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/animallist.dart';
+import 'package:flutter_app/canvaspage.dart';
 import 'package:flutter_app/imagePick.dart';
 import 'package:flutter_app/locationTest.dart';
 import 'package:flutter_app/photohero.dart';
@@ -31,11 +32,11 @@ class Randoms extends StatefulWidget {
 }
 
 class _RandomsState extends State<Randoms> {
-  final _suggestions = <WordPair>[];
+//  final _suggestions = <WordPair>[];
   final _biggerText = TextStyle(fontSize: 16.0);
   final _saved = Set<WordPair>();
 
-  Widget _buildRow(WordPair pair) {
+  /*Widget _buildRow(WordPair pair) {
     final _isSaved = _saved.contains(pair);
     return ListTile(
       title: Text(
@@ -54,9 +55,9 @@ class _RandomsState extends State<Randoms> {
         });
       },
     );
-  }
+  }*/
 
-  Widget _buildSuggestions() {
+  /*Widget _buildSuggestions() {
     return ListView.builder(
         padding: EdgeInsets.all(16.0),
         itemBuilder: (context, i) {
@@ -72,7 +73,7 @@ class _RandomsState extends State<Randoms> {
           }
           return _buildRow(_suggestions[index]);
         });
-  }
+  }*/
 
   _press() {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
@@ -161,9 +162,15 @@ class _RandomsState extends State<Randoms> {
     }));
   }
 
+  void _jumpCanvas() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return CanvasPage();
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
-    var widgetes = [
+    var widgets = [
       FlatButton(
         onPressed: _jumpSecond,
         child: Text("Second"),
@@ -250,6 +257,13 @@ class _RandomsState extends State<Randoms> {
         highlightElevation: 7,
         highlightColor: Colors.black38,
       ),
+      RaisedButton(
+        onPressed: _jumpCanvas,
+        child: Text("Canvas"),
+        elevation: 5,
+        highlightElevation: 7,
+        highlightColor: Colors.black38,
+      ),
     ];
 
     return Scaffold(
@@ -260,11 +274,11 @@ class _RandomsState extends State<Randoms> {
           ],
         ),
         body: GridView.builder(
-            itemCount: widgetes.length,
+            itemCount: widgets.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 mainAxisSpacing: 5.0, crossAxisSpacing: 5.0, crossAxisCount: 3),
             itemBuilder: (context, postion) {
-              return widgetes[postion];
+              return widgets[postion];
             }));
   }
 }

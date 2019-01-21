@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
 import 'dart:math';
+
+import 'package:flutter/material.dart';
+
 class PhotoHero extends StatelessWidget {
   const PhotoHero({Key key, this.photo, this.onTap, this.width})
       : super(key: key);

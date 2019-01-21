@@ -32,7 +32,7 @@ class _LoginSate extends State<Login> with TickerProviderStateMixin {
     _phoneController.addListener(_phoneControllerListener);
     _idCardController.addListener(_idCardControllerListener);
     _verifyController.addListener(_verifyControllerListener);
-    _getVerifyImage();
+//    _getVerifyImage();
   }
 
   @override
@@ -43,12 +43,12 @@ class _LoginSate extends State<Login> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  void _getVerifyImage() async {
+  /*void _getVerifyImage() async {
     Response response = await _dio.post(
         "http://http://59.110.155.214:10088/image",
         options: Options(responseType: ResponseType.STREAM));
     print(response.data);
-  }
+  }*/
 
   void _phoneControllerListener() {
     this._phone = _phoneController.text;
